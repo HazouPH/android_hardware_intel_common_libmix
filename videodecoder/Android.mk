@@ -25,8 +25,13 @@ LOCAL_C_INCLUDES := \
 
 ifeq ($(USE_INTEL_SECURE_AVC),true)
 LOCAL_CFLAGS += -DUSE_INTEL_SECURE_AVC
+ifneq ($(filter $(TARGET_BOARD_PLATFORM),medfield sc1),)
+LOCAL_SRC_FILES += securevideo/clovertrail/VideoDecoderAVCSecure.cpp
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/securevideo/clovertrail
+else
 LOCAL_SRC_FILES += securevideo/$(TARGET_BOARD_PLATFORM)/VideoDecoderAVCSecure.cpp
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/securevideo/$(TARGET_BOARD_PLATFORM)
+endif
 LOCAL_CFLAGS += -DUSE_INTEL_SECURE_AVC
 endif
 
